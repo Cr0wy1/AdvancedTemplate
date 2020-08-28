@@ -13,5 +13,5 @@ AAdvancedTemplateGameMode::AAdvancedTemplateGameMode()
 	DefaultPawnClass = PlayerPawnClassFinder.Class;
 
 	// use our custom HUD class
-	HUDClass = AAdvancedTemplateHUD::StaticClass();
+	//HUDClass = AAdvancedTemplateHUD::StaticClass();
 }
