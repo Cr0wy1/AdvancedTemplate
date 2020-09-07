@@ -44,19 +44,25 @@ void UAttributesComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 }
 
 
-void UAttributesComponent::UpdateAttribute(FName name, float addMin, float addMax, float addValue){
+void UAttributesComponent::UpdateAttribute(FName name, float addMin, float addMax, float addValue, FAttribute &updatedAttribute, bool &success){
 	auto attr = FindAttribute(name);
 	if (attr) {
 		attr->Update(addMin, addMax, addValue);
+		updatedAttribute = *attr;
+		success = true;
 		return;
 	}
+	success = false;
 }
 
-void UAttributesComponent::AddValue(FName attributeName, float value){
+void UAttributesComponent::AddValue(FName attributeName, float value, float &updatedValue, float &success){
 	auto attr = FindAttribute(attributeName);
 	if (attr) {
 			attr->AddValue(value);
+			updatedValue = attr->value;
+			success = true;
 			return;
 	}
+	success = false;
 }
 

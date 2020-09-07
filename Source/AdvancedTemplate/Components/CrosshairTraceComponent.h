@@ -9,11 +9,11 @@
 
 
 //DECLARE_EVENT_OneParam(UCrosshairTraceComponent, FOnHitNewActor, AActor*);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHitNewActorSignature, AActor*, actor);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHitNewActorSignature, AActor*, actor, AActor*, lastActor);
 
 
 
-
+ 
 USTRUCT(BlueprintType)
 struct ADVANCEDTEMPLATE_API FCrosshairResult {
 	GENERATED_BODY()

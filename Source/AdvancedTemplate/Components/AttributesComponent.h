@@ -47,8 +47,8 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UFUNCTION(BlueprintCallable, Category = "Attribute")
-	void UpdateAttribute(FName name, float addMin, float addMax, float addValue);
+	void UpdateAttribute(FName name, float addMin, float addMax, float addValue, FAttribute &updatedAttribute, bool &success);
 
 	UFUNCTION(BlueprintCallable, Category = "Attribute")
-	void AddValue(FName attributeName, float value);
+	void AddValue(FName attributeName, float value, float &updatedValue, float &success);
 };

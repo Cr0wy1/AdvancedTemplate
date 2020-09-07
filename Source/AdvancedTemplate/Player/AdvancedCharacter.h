@@ -30,6 +30,9 @@ public:
 
 	//UPROPERTIES
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
+	bool bCanSprint = true;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 	float walkSpeed = 600.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
@@ -86,7 +89,10 @@ protected:
 	//virtual void OnPickupTake(FItemData* itemData);
 
 	//void OnInteraction();
+	UFUNCTION(BlueprintCallable, Category = "Movement")
 	void ActivateSprint();
+
+	UFUNCTION(BlueprintCallable, Category = "Movement")
 	void DeactivateSprint();
 
 	/** Handles moving forward/backward */
@@ -150,6 +156,10 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnJump();
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnSprint();
+
+
 	//FORCEINLINE AAdvancedPlayerController* GetController() const { return controllerAdv; }
 	FORCEINLINE class UCrosshairTraceComponent* GetCrosshairTraceComp() const { return crosshairTraceComp; }
 	FORCEINLINE class USkeletalMeshComponent* GetMesh1P() const { return meshFP; }
@@ -159,7 +169,7 @@ public:
 	//FORCEINLINE class UHealthComponent* GetHealthComp() const { return healthComp; }
 
 	//FORCEINLINE UItemManagerComponent* GetItemManagerComp() const { return itemManagerComp; }
-
+	UFUNCTION(BlueprintCallable, Category = "Movement")
 	FORCEINLINE bool IsSprinting() const { return bIsSprinting; }
 
 };

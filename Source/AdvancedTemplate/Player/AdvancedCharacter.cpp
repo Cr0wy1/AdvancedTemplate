@@ -163,12 +163,12 @@ void AAdvancedCharacter::OnInteraction() {
 */
 
 void AAdvancedCharacter::ActivateSprint() {
-	movementComp->MaxWalkSpeed = sprintSpeed;
-	bIsSprinting = true;
+	if (bCanSprint) {
+		bIsSprinting = true;
+	}
 }
 
 void AAdvancedCharacter::DeactivateSprint() {
-	movementComp->MaxWalkSpeed = walkSpeed;
 	bIsSprinting = false;
 }
 
@@ -178,9 +178,14 @@ void AAdvancedCharacter::MoveForward(float Value) {
 		// add movement in that direction 
 		AddMovementInput(GetActorForwardVector(), Value);
 
-		if (bIsSprinting) {
+		if (bCanSprint && bIsSprinting && Value > 0) {
+			movementComp->MaxWalkSpeed = sprintSpeed;
+			OnSprint();
 			//healthComp->ConsumeStamina(sprintStaminaConsume);
 			//attributeComp->stamina->value -= sprintStaminaConsume;
+		}
+		else {
+			movementComp->MaxWalkSpeed = walkSpeed;
 		}
 
 	}
@@ -199,6 +204,7 @@ void AAdvancedCharacter::MoveRight(float Value) {
 
 	}
 }
+
 
 void AAdvancedCharacter::TurnAtRate(float Rate) {
 	// calculate delta for this frame from the rate information

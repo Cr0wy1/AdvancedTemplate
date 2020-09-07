@@ -54,7 +54,7 @@ bool UCrosshairTraceComponent::CrosshairLineTrace(FHitResult &OUT_hitresult, FVe
 		if (latestHittedActor != hittedActor) {
 			//UE_LOG(LogTemp, Warning, TEXT("Hit new ACtor"));
 
-			OnHitNewActor.Broadcast(hittedActor);
+			OnHitNewActor.Broadcast(hittedActor, latestHittedActor);
 			latestHittedActor = hittedActor;
 
 		}
