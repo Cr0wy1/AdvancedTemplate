@@ -96,6 +96,8 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 			//Destroy();
 		}
 
+		OnImpact(Hit);
+
 		switch (finalHitBehavior) {
 		case EFinalHitBehavior::DESTROY:
 			Destroy();
@@ -113,7 +115,7 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 
 
 
-		OnImpact(Hit);
+		
 	}
 
 	//draw debug impact point
