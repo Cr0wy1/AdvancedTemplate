@@ -50,6 +50,15 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile")
 		float speed = 3000.0f;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Impact Decal")
+	UMaterialInterface* impactDecalMaterial;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Impact Decal")
+		float decalSize = 10.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Impact Decal")
+		float decalLifeDuration = 5.0f;
+
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile")
 		bool bDrawDebug = false;
@@ -66,6 +75,8 @@ protected:
 
 	//Disable Movement and Collision, only for cosmetics
 	void SetDummy();
+
+	void SpawnImpactDecal(const FHitResult& Hit, UPrimitiveComponent* hitComp);
 
 public:
 

@@ -7,6 +7,9 @@
 #include "DrawDebugHelpers.h"
 #include "Kismet/GameplayStatics.h" //ApplyDamage
 #include "GameFramework/DamageType.h"
+#include "Kismet/GameplayStatics.h" //SpawnDecalAttached
+#include "Components/DecalComponent.h"
+
 
 AProjectile::AProjectile() {
 
@@ -80,21 +83,17 @@ void AProjectile::Tick(float DeltaTime) {
 void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit) {
 
 	if (OtherActor && OtherActor != this) {
-		UE_LOG(LogTemp, Warning, TEXT("Hittet Actor: %s"), *OtherActor->GetName());
-
-
+		//UE_LOG(LogTemp, Warning, TEXT("Hittet Actor: %s"), *OtherActor->GetName());
 
 		FDamageEvent damageEvent;
 		UGameplayStatics::ApplyDamage(OtherActor, impactDamage, nullptr, this, UDamageType::StaticClass());
 
-		//OtherActor->TakeDamage(impactDamage, damageEvent, nullptr, nullptr);
-
 		// Only add impulse and destroy projectile if we hit a physics
 		if (OtherComp && OtherComp->IsSimulatingPhysics()) {
 			OtherComp->AddImpulseAtLocation(GetVelocity() * hitImpulse, GetActorLocation());
-
-			//Destroy();
 		}
+
+		SpawnImpactDecal(Hit, OtherComp);
 
 		OnImpact(Hit);
 
@@ -136,6 +135,21 @@ void AProjectile::SetDummy() {
 	collisionMeshComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	projectileMovement->SetAutoActivate(false);
 
+}
+
+void AProjectile::SpawnImpactDecal(const FHitResult& Hit, UPrimitiveComponent* hitComp){
+	if (impactDecalMaterial) {
+
+		FRotator decalRot = Hit.Normal.Rotation(); 
+		decalRot.Roll = FMath::RandRange(0.0f, 359.0f); //Random Decal Rotation
+
+		UDecalComponent* impactDecal = UGameplayStatics::SpawnDecalAttached(impactDecalMaterial, FVector(decalSize), hitComp, NAME_None, Hit.Location, decalRot, EAttachLocation::KeepWorldPosition, decalLifeDuration);
+		if (impactDecal) {
+			impactDecal->SetFadeScreenSize(0.0f);
+			impactDecal->SetFadeOut(decalLifeDuration - 0.5f, 0.5f, false); 
+		}
+		
+	}
 }
 
 
