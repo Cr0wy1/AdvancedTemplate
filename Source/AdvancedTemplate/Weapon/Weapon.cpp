@@ -78,6 +78,13 @@ void AWeapon::Fire(const FVector targetLoc) {
 		}
 
 		FRotator lookAtRot = UKismetMathLibrary::FindLookAtRotation(projectileSpawnTrans.GetLocation(), targetLoc);
+
+		//Random Rot for Accuracy
+		float accuracyRange = cShootingDuration*90.0f - (cShootingDuration*90.0f * properties.accuracy);
+		FVector2D randPoint = FMath::RandPointInCircle(accuracyRange);
+		lookAtRot.Yaw += randPoint.X;
+		lookAtRot.Pitch += randPoint.Y;
+
 		projectileSpawnTrans.SetRotation(FQuat(lookAtRot));
 
 

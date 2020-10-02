@@ -81,10 +81,10 @@ struct ADVANCEDTEMPLATE_API FWeaponProperties {
 	GENERATED_BODY()
 
 		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
-		EShootingType shootingType = EShootingType::SINGLE;
+		EShootingType shootingType = EShootingType::RAPID;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
-		float shotDelay = 1.0f;
+		float shotDelay = 0.15f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
 		FWeaponAmmo ammo;
@@ -99,7 +99,9 @@ struct ADVANCEDTEMPLATE_API FWeaponProperties {
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
 		float chargeSpeed = 1.0f;
 
-	
+	//1.0f = 100% accuracy
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
+		float accuracy = 1.0f;
 };
 
 
